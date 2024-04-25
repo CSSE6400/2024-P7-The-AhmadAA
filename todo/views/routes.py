@@ -98,13 +98,13 @@ def delete_todo(todo_id):
 
  
 @api.route('/todos/ical', methods=['POST']) 
-def create_ical(): 
+def create_ical_entry(): 
    todos = Todo.query.order_by(Todo.created_at.desc()).all() 
    todo_input = [] 
    for todo in todos: 
       todo_input.append(todo.to_dict()) 
  
-   task = ical.create_ical.delay(todo_input) 
+   task = ical.create_ical().delay(todo_input) 
  
    result = { 
       'task_id': task.id, 
